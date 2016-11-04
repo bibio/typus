@@ -11,7 +11,7 @@ module Admin::Resources::TableHelper
     render "helpers/admin/resources/table", locals
   end
 
-  def table_header(model, fields, params = params)
+  def table_header(model, fields, params = request.params)
     fields.map do |key, value|
 
       key = key.gsub(".", " ") if key.to_s.match(/\./)
