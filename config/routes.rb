@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
+  default_scope = "admin/typus"
+
   routes_block = lambda do
 
-    dashboard = Typus.subdomain ? "/dashboard" : "/admin/dashboard"
+    dashboard = Typus.subdomain ? "/dashboard" : "/#{default_scope}/dashboard"
 
     match "/" => redirect(dashboard)
     match "dashboard" => "dashboard#index", :as => "dashboard_index"
@@ -31,7 +33,7 @@ Rails.application.routes.draw do
       namespace :admin, :path => "", &routes_block
     end
   else
-    scope "admin", {:module => :admin, :as => "admin"}, &routes_block
+    scope default_scope, { :module => :admin, :as => "admin" }, &routes_block
   end
 
 end
